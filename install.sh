@@ -34,33 +34,40 @@ echo -e "\033[1;37m
              Last Updated: 2024-11-13
 \033[0m"
 
+# Function to calculate elapsed time
+start_time=$(date +%s)
+
+# Function to calculate and display elapsed time in seconds
+elapsed_time() {
+    current_time=$(date +%s)
+    elapsed=$((current_time - start_time))
+    echo -e "\033[1;32m$(date '+%Y/%m/%d %H:%M:%S') Elapsed Time: ${elapsed}s\033[0m"
+}
+
 # Ask user if they want to continue
 read -p "Do you want to continue with the installation? (y/n): " choice
 if [[ "$choice" != "y" && "$choice" != "Y" ]]; then
+    elapsed_time
     echo "Installation canceled."
     exit 0
 fi
 
 # Check for root privileges
 if [ "$(id -u)" -ne 0 ]; then
+    elapsed_time
     echo "This script requires root privileges. Please run as root or use sudo."
     exit 1
 fi
 
-# Function to get the elapsed time
-start_time=$(date +%s)
-
-# Logging function with elapsed time
+# Logging function to add timestamps for better traceability
 log_info() {
-    elapsed_time=$(( $(date +%s) - $start_time ))
-    elapsed_formatted=$(printf "%02d:%02d:%02d" $(($elapsed_time/3600)) $(($elapsed_time%3600/60)) $(($elapsed_time%60)))
-    echo -e "\033[1;34m[$elapsed_formatted] [INFO] - $1\033[0m"
+    elapsed_time
+    echo -e "\033[1;34m[INFO] - $1\033[0m"
 }
 
 log_error() {
-    elapsed_time=$(( $(date +%s) - $start_time ))
-    elapsed_formatted=$(printf "%02d:%02d:%02d" $(($elapsed_time/3600)) $(($elapsed_time%3600/60)) $(($elapsed_time%60)))
-    echo -e "\033[1;31m[$elapsed_formatted] [ERROR] - $1\033[0m"
+    elapsed_time
+    echo -e "\033[1;31m[ERROR] - $1\033[0m"
 }
 
 # Function to check for errors and exit on failure
