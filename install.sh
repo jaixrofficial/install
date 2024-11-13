@@ -68,14 +68,14 @@ echo "Installing TypeScript globally..."
 npm install -g typescript
 check_error "TypeScript installation failed"
 
-# Clone the AirLink Panel repository into the 'airlink' directory
-echo "Cloning AirLink Panel repository..."
-mkdir -p ~/airlink/panel
-git clone https://github.com/AirlinkLabs/panel.git ~/airlink/panel
+# Clone the AirLink Panel repository into the 'airlink' directory in the current location
+echo "Cloning AirLink Panel repository into the current directory..."
+mkdir -p ./airlink/panel
+git clone https://github.com/AirlinkLabs/panel.git ./airlink/panel
 check_error "Repository cloning failed"
 
 # Change to the cloned repository directory
-cd ~/airlink/panel || { echo "Error: Cannot access the panel directory"; exit 1; }
+cd ./airlink/panel || { echo "Error: Cannot access the panel directory"; exit 1; }
 
 # Install project dependencies
 echo "Installing project dependencies..."
