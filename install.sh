@@ -47,56 +47,66 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
+# Logging function to add timestamps for better traceability
+log_info() {
+    echo -e "\033[1;34m$(date '+%Y-%m-%d %H:%M:%S') [INFO] - $1\033[0m"
+}
+
+log_error() {
+    echo -e "\033[1;31m$(date '+%Y-%m-%d %H:%M:%S') [ERROR] - $1\033[0m"
+}
+
 # Function to check for errors and exit on failure
 check_error() {
     if [ $? -ne 0 ]; then
-        echo "Error: $1" >&2
+        log_error "$1"
         exit 1
     fi
 }
 
 # Update system and install dependencies
-echo "Updating system and installing dependencies..."
+log_info "Updating system and installing dependencies..."
 sudo apt update -y && sudo apt upgrade -y
 check_error "System update failed"
 
 # Install necessary packages
+log_info "Installing necessary packages (git, npm, curl)..."
 sudo apt install -y git npm curl
 check_error "Failed to install dependencies"
 
 # Install TypeScript globally
-echo "Installing TypeScript globally..."
+log_info "Installing TypeScript globally..."
 npm install -g typescript
 check_error "TypeScript installation failed"
 
 # Clone the AirLink Panel repository into the 'airlink' directory in the current location
-echo "Cloning AirLink Panel repository into the current directory..."
+log_info "Cloning AirLink Panel repository..."
 mkdir -p ./airlink/panel
 git clone https://github.com/AirlinkLabs/panel.git ./airlink/panel
 check_error "Repository cloning failed"
 
 # Change to the cloned repository directory
-cd ./airlink/panel || { echo "Error: Cannot access the panel directory"; exit 1; }
+cd ./airlink/panel || { log_error "Cannot access the panel directory"; exit 1; }
 
 # Install project dependencies
-echo "Installing project dependencies..."
+log_info "Installing project dependencies..."
 npm install --production
 check_error "Dependency installation failed"
 
 # Run database migration
-echo "Running database migration..."
+log_info "Running database migration..."
 npm run migrate:dev
 check_error "Database migration failed"
 
 # Build the project for production
-echo "Building the project..."
+log_info "Building the project for production..."
 npm run build
 check_error "Build failed"
 
 # Start the project
-echo "Starting the project with npm run start..."
+log_info "Starting the project..."
 npm run start
 check_error "Failed to start the project"
 
 # Final message
-echo "AirLink Panel installation and setup complete!"
+log_info "AirLink Panel installation and setup complete!"
