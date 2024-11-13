@@ -26,7 +26,7 @@ echo -e "\033[1;37m
 
    _   _    _____           _        _ _ 
   /_\ (_)_ _\_   \_ __  ___| |_ __ _| | |
- //\\| | '__/ /\/ '_ \/ __| __/ _\` | | |
+ //_\\| | '__/ /\/ '_ \/ __| __/ _` | | |
 /  _  \ | /\/ /_ | | | \__ \ || (_| | | |
 \_/ \_/_|_\____/ |_| |_|___/\__\__,_|_|_|
 
@@ -47,13 +47,20 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-# Logging function to add timestamps for better traceability
+# Function to get the elapsed time
+start_time=$(date +%s)
+
+# Logging function with elapsed time
 log_info() {
-    echo -e "\033[1;34m$(date '+%Y-%m-%d %H:%M:%S') [INFO] - $1\033[0m"
+    elapsed_time=$(( $(date +%s) - $start_time ))
+    elapsed_formatted=$(printf "%02d:%02d:%02d" $(($elapsed_time/3600)) $(($elapsed_time%3600/60)) $(($elapsed_time%60)))
+    echo -e "\033[1;34m[$elapsed_formatted] [INFO] - $1\033[0m"
 }
 
 log_error() {
-    echo -e "\033[1;31m$(date '+%Y-%m-%d %H:%M:%S') [ERROR] - $1\033[0m"
+    elapsed_time=$(( $(date +%s) - $start_time ))
+    elapsed_formatted=$(printf "%02d:%02d:%02d" $(($elapsed_time/3600)) $(($elapsed_time%3600/60)) $(($elapsed_time%60)))
+    echo -e "\033[1;31m[$elapsed_formatted] [ERROR] - $1\033[0m"
 }
 
 # Function to check for errors and exit on failure
