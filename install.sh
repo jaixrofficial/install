@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ####################################################################################
-#                                   AirInstall                                       #
+#                                   AirInstall                                      #
 #                                                                                    #
 #   © 2018 - 2024 InfiniteeDev                                                       #
 #                                                                                    #
@@ -68,9 +68,9 @@ echo "Installing TypeScript globally..."
 npm install -g typescript
 check_error "TypeScript installation failed"
 
-# Clone the Airlink Panel repository into the 'airlink' directory
-echo "Cloning Airlink Panel repository..."
-mkdir -p ~/airlink
+# Clone the AirLink Panel repository into the 'airlink' directory
+echo "Cloning AirLink Panel repository..."
+mkdir -p ~/airlink/panel
 git clone https://github.com/AirlinkLabs/panel.git ~/airlink/panel
 check_error "Repository cloning failed"
 
@@ -98,4 +98,4 @@ npm run start
 check_error "Failed to start the project"
 
 # Final message
-echo "Airlink Panel installation and setup complete!"
+echo "AirLink Panel installation and setup complete!"
