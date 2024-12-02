@@ -1,11 +1,12 @@
 #!/bin/bash
 
 ####################################################################################
-#                                   AirInstall                                      #
+#                                   AirInstall                                       #
 #                                                                                    #
 #   © 2018 - 2024 InfiniteeDev                                                       #
 #                                                                                    #
 #   Author: InfiniteeDev                                                             #
+#   Panel - Airlink                                                                  #
 #   Last Updated: 2024-12-02                                                         #
 #                                                                                    #
 #   License:                                                                         #
@@ -39,6 +40,13 @@ if [ "$(id -u)" -ne 0 ]; then
     echo -e "\033[1;31m[ERROR] This script requires root privileges. Please run as root or use sudo.\033[0m"
     exit 1
 fi
+
+# Thanks to Airlink Labs 
+echo -e "\033[1;32m
+A Huge thanks to the AirLink Labs team for creating the panel! We appreciate your hard work and dedication.
+\033[0m"
+
+sleep 10
 
 # Install necessary packages
 echo -e "\033[1;34m[INFO] Installing dependencies...\033[0m"
