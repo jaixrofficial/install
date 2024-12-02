@@ -6,32 +6,6 @@
 #   © 2018 - 2024 InfiniteeDev                                                       #
 #                                                                                    #
 #   Author: InfiniteeDev                                                             #
-#   Last Updated: 2024-11-13                                                         #
-#                                                                                    #
-#   License:                                                                         #
-#   This program is free software: you can redistribute it and/or modify             #
-#   it under the terms of the GNU General Public License as published by             #
-#   the Free Software Foundation, either version 3 of the License, or                #
-#   (at your option) any later version.                                              #
-#                                                                                    #
-#   Distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;        #
-#   without even the implied warranty of MERCHANTABILITY or FITNESS FOR              #
-#   A PARTICULAR PURPOSE. See the GNU General Public License for more details.       #
-#                                                                                    #
-#   License details: <https://www.gnu.org/licenses/>                                 #
-####################################################################################
-
-# Display the ASCII Art logo with author and updated date
-echo -e "\033[1;37m
-
-   #!/bin/bash
-
-####################################################################################
-#                                   AirInstall                                      #
-#                                                                                    #
-#   © 2018 - 2024 InfiniteeDev                                                       #
-#                                                                                    #
-#   Author: InfiniteeDev                                                             #
 #   Last Updated: 2024-12-02                                                         #
 #                                                                                    #
 #   License:                                                                         #
@@ -47,86 +21,71 @@ echo -e "\033[1;37m
 #   License details: <https://www.gnu.org/licenses/>                                 #
 ####################################################################################
 
-# Display the ASCII Art logo with author and updated date
+# Display the updated ASCII Art logo with author and updated date
 echo -e "\033[1;37m
-
-   
-
  █████╗ ██╗██████╗ ██╗     ██╗███╗   ██╗██╗  ██╗
 ██╔══██╗██║██╔══██╗██║     ██║████╗  ██║██║ ██╔╝
 ███████║██║██████╔╝██║     ██║██╔██╗ ██║█████╔╝ 
 ██╔══██║██║██╔══██╗██║     ██║██║╚██╗██║██╔═██╗ 
 ██║  ██║██║██║  ██║███████╗██║██║ ╚████║██║  ██╗
 ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝
-                                                                                                                     
+
                       Author: InfiniteeDev
                       Last Updated: 2024-12-02
-                      
 \033[0m"
 
-# Check for root privileges
+# Check if the script is being run as root
 if [ "$(id -u)" -ne 0 ]; then
-    echo "This script requires root privileges. Please run as root or use sudo."
+    echo -e "\033[1;31m[ERROR] This script requires root privileges. Please run as root or use sudo.\033[0m"
     exit 1
 fi
 
-# Go to the /var/www/ directory and clone the repository
-cd /var/www/
-echo "Cloning the repository..."
-git clone https://github.com/AirlinkLabs/panel.git
-cd panel || { echo "Failed to enter the panel directory."; exit 1; }
-
-# Install TypeScript globally
-echo "Installing TypeScript globally..."
-npm install -g typescript
-
-# Install project dependencies
-echo "Installing project dependencies..."
-npm install --production
-
-# Run database migration
-echo "Running database migration..."
-npm run migrate-deploy
-
-# Build the TypeScript project
-echo "Building the TypeScript project..."
-npm run build-ts
-
-# Final message
-echo "AirLink Panel setup complete!"
-
-
-             Author: InfiniteeDev
-             Last Updated: 2024-11-13
-\033[0m"
-
-# Check for root privileges
-if [ "$(id -u)" -ne 0 ]; then
-    echo "This script requires root privileges. Please run as root or use sudo."
+# Install necessary packages
+echo -e "\033[1;34m[INFO] Installing dependencies...\033[0m"
+sudo apt update -y && sudo apt upgrade -y
+sudo apt install -y git npm curl
+if [ $? -ne 0 ]; then
+    echo -e "\033[1;31m[ERROR] Failed to install dependencies.\033[0m"
     exit 1
 fi
 
-# Go to the /var/www/ directory and clone the repository
-cd /var/www/
-echo "Cloning the repository..."
+# Clone the repository and enter the directory
+echo -e "\033[1;34m[INFO] Cloning AirLink Panel repository...\033[0m"
+cd /var/www/ || { echo -e "\033[1;31m[ERROR] Failed to navigate to /var/www.\033[0m"; exit 1; }
 git clone https://github.com/AirlinkLabs/panel.git
-cd panel || { echo "Failed to enter the panel directory."; exit 1; }
+cd panel || { echo -e "\033[1;31m[ERROR] Failed to enter the panel directory.\033[0m"; exit 1; }
 
 # Install TypeScript globally
-echo "Installing TypeScript globally..."
+echo -e "\033[1;34m[INFO] Installing TypeScript globally...\033[0m"
 npm install -g typescript
+if [ $? -ne 0 ]; then
+    echo -e "\033[1;31m[ERROR] TypeScript installation failed.\033[0m"
+    exit 1
+fi
 
 # Install project dependencies
-echo "Installing project dependencies..."
+echo -e "\033[1;34m[INFO] Installing project dependencies...\033[0m"
 npm install --production
+if [ $? -ne 0 ]; then
+    echo -e "\033[1;31m[ERROR] Failed to install project dependencies.\033[0m"
+    exit 1
+fi
 
 # Run database migration
-echo "Running database migration..."
+echo -e "\033[1;34m[INFO] Running database migration...\033[0m"
 npm run migrate-deploy
+if [ $? -ne 0 ]; then
+    echo -e "\033[1;31m[ERROR] Database migration failed.\033[0m"
+    exit 1
+fi
 
 # Build the TypeScript project
-echo "Building the TypeScript project..."
+echo -e "\033[1;34m[INFO] Building the TypeScript project...\033[0m"
 npm run build-ts
+if [ $? -ne 0 ]; then
+    echo -e "\033[1;31m[ERROR] Project build failed.\033[0m"
+    exit 1
+fi
 
-# Final message
-echo "AirLink Panel setup complete!"
+# Final success message
+echo -e "\033[1;32m[INFO] AirLink Panel setup complete!\033[0m"
