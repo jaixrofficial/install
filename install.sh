@@ -109,7 +109,7 @@ check_error "Dependency installation failed"
 
 # Run database migration
 log_info "Running database migration..."
-npm run migrate:dev
+npm run migrate-dev
 check_error "Database migration failed"
 
 # Build the project for production
