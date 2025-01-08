@@ -3,11 +3,11 @@
 ####################################################################################
 #                                    Install                                         #
 #                                                                                    #
-#   © 2018 - 2024 InfiniteeDev                                                       #
+#   © 2018 - 2025 Jaixr                                                              #
 #                                                                                    #
-#   Author: InfiniteeDev                                                             #
-#   Panel - Airlink                                                                  #
-#   Last Updated: 2024-12-02                                                         #
+#   Author: Jaixr                                                                    #
+#   Panel - Prism 0.5                                                                #
+#   Last Updated: 2025-01-08                                                         #
 #                                                                                    #
 #   License:                                                                         #
 #   This program is free software: you can redistribute it and/or modify             #
@@ -22,6 +22,7 @@
 #   License details: <https://www.gnu.org/licenses/>                                 #
 ####################################################################################
 
+echo -e "\033[1;37m
 
 ██████╗ ██████╗ ██╗███████╗███╗   ███╗
 ██╔══██╗██╔══██╗██║██╔════╝████╗ ████║
@@ -30,6 +31,9 @@
 ██║     ██║  ██║██║███████║██║ ╚═╝ ██║
 ╚═╝     ╚═╝  ╚═╝╚═╝╚══════╝╚═╝     ╚═╝
                                       
+                      Author: InfiniteeDev
+                      Last Updated: 2024-12-02
+\033[0m"
 
 # Function to display colored messages
 function display_message() {
