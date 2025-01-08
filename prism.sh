@@ -31,7 +31,7 @@ echo -e "\033[1;37m
 ██║     ██║  ██║██║███████║██║ ╚═╝ ██║
 ╚═╝     ╚═╝  ╚═╝╚═╝╚══════╝╚═╝     ╚═╝
                                       
-                      Author: Jaixr
+                      Author: InfiniteeDev
                       Last Updated: 2025-01-08
 \033[0m"
 
