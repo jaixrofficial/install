@@ -31,8 +31,8 @@ echo -e "\033[1;37m
 ██║     ██║  ██║██║███████║██║ ╚═╝ ██║
 ╚═╝     ╚═╝  ╚═╝╚═╝╚══════╝╚═╝     ╚═╝
                                       
-                      Author: InfiniteeDev
-                      Last Updated: 2024-12-02
+                      Author: Jaixr
+                      Last Updated: 2025-01-08
 \033[0m"
 
 # Function to display colored messages
@@ -72,24 +72,46 @@ while getopts "d" opt; do
     esac
 done
 
-# Install Redis
+# Install Redis with official Redis repository
 function install_redis() {
     if ! command -v redis-server &>/dev/null; then
         log_success "Redis is not installed. Installing Redis..."
-        if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-            if [[ -f /etc/debian_version ]]; then
-                $DRY_RUN || sudo apt update && sudo apt install redis-server -y
-            elif [[ -f /etc/redhat-release ]]; then
-                $DRY_RUN || sudo dnf install epel-release -y && sudo dnf install redis -y
-            else
-                log_error "Unsupported Linux distribution. Please install Redis manually."
-                exit 1
-            fi
-            $DRY_RUN || sudo systemctl enable redis && sudo systemctl start redis
-        else
-            log_error "Unsupported OS. Please install Redis manually."
-            exit 1
-        fi
+
+        # Install necessary packages
+        $DRY_RUN || sudo apt-get install -y lsb-release curl gpg
+
+        # Add Redis GPG key
+        $DRY_RUN || curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+        $DRY_RUN || sudo chmod 644 /usr/share/keyrings/redis-archive-keyring.gpg
+
+        # Add Redis repository to sources list
+        $DRY_RUN || echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+
+        # Update apt repositories and install Redis
+        $DRY_RUN || sudo apt-get update
+        $DRY_RUN || sudo apt-get install -y redis
+
+        # Prompt user for systemctl or service choice
+        log_success "Redis installation is complete. Choose your service manager."
+        local choice
+        while true; do
+            read -p "Use 'systemctl' or 'service' to start and enable Redis? (systemctl/service): " choice
+            case "$choice" in
+                systemctl)
+                    $DRY_RUN || { sudo systemctl enable redis && sudo systemctl start redis; }
+                    log_success "Redis started and enabled using systemctl."
+                    break
+                    ;;
+                service)
+                    $DRY_RUN || { sudo service redis-server start && sudo service redis-server enable; }
+                    log_success "Redis started and enabled using service."
+                    break
+                    ;;
+                *)
+                    log_error "Invalid choice. Please enter 'systemctl' or 'service'."
+                    ;;
+            esac
+        done
     else
         log_success "Redis is already installed."
     fi
