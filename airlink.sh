@@ -1,11 +1,11 @@
 #!/bin/bash
 
 ####################################################################################
-#                                   AirInstall                                       #
+#                                    Install                                         #
 #                                                                                    #
-#   © 2018 - 2024 InfiniteeDev                                                       #
+#   © 2018 - 2024 Jaixr                                                              #
 #                                                                                    #
-#   Author: InfiniteeDev                                                             #
+#   Author: Jaixr                                                                    #
 #   Panel - Airlink                                                                  #
 #   Last Updated: 2024-12-02                                                         #
 #                                                                                    #
@@ -31,7 +31,7 @@ echo -e "\033[1;37m
 ██║  ██║██║██║  ██║███████╗██║██║ ╚████║██║  ██╗
 ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝
 
-                      Author: InfiniteeDev
+                      Author:Jaixr
                       Last Updated: 2024-12-02
 \033[0m"
 
