@@ -56,8 +56,8 @@ if ! command -v redis-server &> /dev/null; then
             sudo dnf install epel-release -y
             sudo dnf install redis -y
         fi
-        sudo systemctl start redis
-        sudo systemctl enable redis
+        sudo service redis-server enable
+        sudo service redis-server start
     fi
 else
     display_message "Redis is already installed."
