@@ -1,5 +1,40 @@
 #!/bin/bash
 
+####################################################################################
+#                                    Install                                         #
+#                                                                                    #
+#   © 2018 - 2025 Jaixr                                                              #
+#                                                                                    #
+#   Author: Jaixr                                                                    #
+#   Panel - Prism 0.5                                                                #
+#   Last Updated: 2025-01-08                                                         #
+#                                                                                    #
+#   License:                                                                         #
+#   This program is free software: you can redistribute it and/or modify             #
+#   it under the terms of the GNU General Public License as published by             #
+#   the Free Software Foundation, either version 3 of the License, or                #
+#   (at your option) any later version.                                              #
+#                                                                                    #
+#   Distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;        #
+#   without even the implied warranty of MERCHANTABILITY or FITNESS FOR              #
+#   A PARTICULAR PURPOSE. See the GNU General Public License for more details.       #
+#                                                                                    #
+#   License details: <https://www.gnu.org/licenses/>                                 #
+####################################################################################
+
+echo -e "\033[1;37m
+
+██████╗ ██████╗ ██╗███████╗███╗   ███╗
+██╔══██╗██╔══██╗██║██╔════╝████╗ ████║
+██████╔╝██████╔╝██║███████╗██╔████╔██║
+██╔═══╝ ██╔══██╗██║╚════██║██║╚██╔╝██║
+██║     ██║  ██║██║███████║██║ ╚═╝ ██║
+╚═╝     ╚═╝  ╚═╝╚═╝╚══════╝╚═╝     ╚═╝
+                                      
+                      Author: Jaixr
+                      Last Updated: 2025-01-08
+\033[0m"
+
 # Function to display a message with graphics
 function display_message() {
     echo -e "\n\033[1;32m$1\033[0m"
@@ -11,8 +46,12 @@ if ! command -v redis-server &> /dev/null; then
     # Installation commands for Redis
     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         if [[ -f /etc/debian_version ]]; then
-            sudo apt update
-            sudo apt install redis-server -y
+            sudo apt-get install lsb-release curl gpg
+      curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+      sudo chmod 644 /usr/share/keyrings/redis-archive-keyring.gpg
+      echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+      sudo apt-get update
+      sudo apt-get install redisn -y
         elif [[ -f /etc/redhat-release ]]; then
             sudo dnf install epel-release -y
             sudo dnf install redis -y
