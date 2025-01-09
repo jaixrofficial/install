@@ -68,6 +68,7 @@ if ! command -v bun &> /dev/null; then
     display_message "Bun is not installed. Installing Bun..."
     curl -fsSL https://bun.sh/install | bash
     source ~/.bashrc
+    bun upgrade --canary
 else
     display_message "Bun is already installed."
 fi
@@ -95,10 +96,11 @@ else
     cd app || exit
     npm install
     npm run build
+    npm install -g pm2
     cd ../
     read -p "Installation complete. Do you want to run the program now? (y/n): " run_program
     if [[ "$run_program" == "y" ]]; then
-        bun run app.js
+        pm2 start "bun run app.js" --name prism
     else
         display_message "You can run the program later by navigating to the Prism directory and executing 'bun run app.js'."
     fi
