@@ -6,7 +6,7 @@
 #   © 2018 - 2024 Jaixr                                                              #
 #                                                                                    #
 #   Author: Jaixr                                                                    #
-#   Panel - Airlink                                                                  #
+#   Panel - Prism                                                                    #
 #   Last Updated: 2024-12-02                                                         #
 #                                                                                    #
 #   License:                                                                         #
