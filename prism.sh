@@ -1,5 +1,41 @@
 #!/bin/bash
 
+####################################################################################
+#                                    Install                                         #
+#                                                                                    #
+#   © 2018 - 2024 Jaixr                                                              #
+#                                                                                    #
+#   Author: Jaixr                                                                    #
+#   Panel - Airlink                                                                  #
+#   Last Updated: 2024-12-02                                                         #
+#                                                                                    #
+#   License:                                                                         #
+#   This program is free software: you can redistribute it and/or modify             #
+#   it under the terms of the GNU General Public License as published by             #
+#   the Free Software Foundation, either version 3 of the License, or                #
+#   (at your option) any later version.                                              #
+#                                                                                    #
+#   Distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;        #
+#   without even the implied warranty of MERCHANTABILITY or FITNESS FOR              #
+#   A PARTICULAR PURPOSE. See the GNU General Public License for more details.       #
+#                                                                                    #
+#   License details: <https://www.gnu.org/licenses/>                                 #
+####################################################################################
+
+# Display the updated ASCII Art logo with author and updated date
+echo -e "\033[1;37m
+ 
+██████╗ ██████╗ ██╗███████╗███╗   ███╗
+██╔══██╗██╔══██╗██║██╔════╝████╗ ████║
+██████╔╝██████╔╝██║███████╗██╔████╔██║
+██╔═══╝ ██╔══██╗██║╚════██║██║╚██╔╝██║
+██║     ██║  ██║██║███████║██║ ╚═╝ ██║
+╚═╝     ╚═╝  ╚═╝╚═╝╚══════╝╚═╝     ╚═╝
+                                      
+                      Author:Jaixr
+                      Last Updated: 2024-12-02
+\033[0m"
+
 # Color definitions
 BLUE="\033[0;34m"
 WHITE="\033[1;37m"
